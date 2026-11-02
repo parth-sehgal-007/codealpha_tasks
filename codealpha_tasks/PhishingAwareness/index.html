@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phishing Awareness Training</title>
+<style>
+:root{--bg:#f6f8f7;--ink:#14231f;--mut:#51635d;--card:#fff;--line:#d5dfdb;--ok:#127a4b;--bad:#b3261e;--acc:#0b5d5e}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1917;--ink:#e7f0ed;--mut:#9fb3ac;--card:#172622;--line:#2a3d37;--ok:#4cc38a;--bad:#ff8a80;--acc:#5cc4c0}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Georgia,serif}
+main{max-width:760px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:2.2rem;line-height:1.15;margin:.2em 0}h2{margin-top:2.2em;font-size:1.4rem}
+.sub{color:var(--mut)}.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;margin:14px 0}
+.mail{font-family:system-ui,sans-serif;font-size:15px}.mail .hd{border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:10px;color:var(--mut)}
+.mail a{color:var(--acc)}
+button{font:600 15px system-ui,sans-serif;padding:9px 16px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer;margin:4px 6px 4px 0}
+button.alt{background:transparent;color:var(--acc)}button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.fb{margin-top:10px;font-family:system-ui,sans-serif;font-size:15px}.ok{color:var(--ok)}.bad{color:var(--bad)}
+ul{padding-left:20px}li{margin:6px 0}
+</style></head><body><main>
+<h1>How to spot a phishing attack</h1>
+<p class="sub">A short training module: learn the signs, then test yourself with real-looking examples.</p>
+
+<h2>What phishing is</h2>
+<p>Phishing is when an attacker pretends to be someone you trust (a bank, your boss, a delivery company) to make you click a link, open a file, or hand over a password or OTP. It works because it targets people, not software.</p>
+
+<h2>Red flags in an email</h2>
+<ul>
+<li><b>Sender mismatch:</b> display name says "SBI Bank" but the address is <code>support@sbi-secure-login.xyz</code>.</li>
+<li><b>Urgency or fear:</b> "Account blocked in 24 hours", "Final warning".</li>
+<li><b>Suspicious links:</b> hover before clicking. <code>paypa1.com</code> (a number 1) or <code>amazon.com.verify-now.net</code> (real domain is verify-now.net).</li>
+<li><b>Requests for secrets:</b> no real company asks for your password, PIN or OTP by email or chat.</li>
+<li><b>Unexpected attachments:</b> .zip, .exe, or "invoice.pdf.exe", macro-enabled Office files.</li>
+<li><b>Generic greeting and odd language:</b> "Dear customer", spelling errors, strange formatting.</li>
+</ul>
+
+<h2>Fake websites</h2>
+<ul>
+<li>Check the full domain, not just the padlock. HTTPS only means the connection is encrypted, not that the site is honest.</li>
+<li>Look for lookalikes: swapped letters, extra words, odd endings (<code>.top</code>, <code>.xyz</code>).</li>
+<li>Type the address yourself or use a saved bookmark for banking and work logins.</li>
+</ul>
+
+<h2>Social engineering tactics</h2>
+<ul>
+<li><b>Authority:</b> "This is the CEO, send gift cards now."</li>
+<li><b>Urgency and scarcity:</b> forces you to act before thinking.</li>
+<li><b>Curiosity and greed:</b> "You won a prize", "See who viewed your profile".</li>
+<li><b>Pretexting:</b> a believable story, such as fake IT support asking you to "verify" your login.</li>
+<li><b>Variants:</b> smishing (SMS), vishing (calls), spear phishing (targeted at you), QR phishing (malicious QR codes).</li>
+</ul>
+
+<h2>Real-world examples</h2>
+<ul>
+<li><b>Fake UPI/KYC SMS:</b> "Your account will be suspended, update KYC" with a link to a fake bank page.</li>
+<li><b>Business email compromise:</b> a spoofed executive email asks finance to change a vendor's bank account. Losses from such cases run into billions of dollars worldwide.</li>
+<li><b>Credential harvesting:</b> a fake Microsoft 365 "password expires" page.</li>
+</ul>
+
+<h2>Test yourself</h2>
+<div id="quiz"></div>
+<div class="card" id="score" hidden></div>
+
+<h2>Best practices</h2>
+<ul>
+<li>Stop, look at the sender and link, then decide.</li>
+<li>Verify through another channel: call the company on its official number.</li>
+<li>Turn on multi-factor authentication and use a password manager (it will not autofill on fake domains).</li>
+<li>Keep software updated and report suspicious messages to your IT or security team.</li>
+<li>If you clicked: change the password, tell IT, and monitor your accounts.</li>
+</ul>
+</main>
+<script>
+const Q=[
+{from:"Netflix Support &lt;billing@netflix-account-verify.com&gt;",subj:"Payment failed - act within 24 hours",body:"Dear customer, your membership will be cancelled. <a href='#' onclick='return false'>Update payment details</a>",phish:true,why:"Look-alike domain (netflix-account-verify.com is not netflix.com), urgency, generic greeting."},
+{from:"HR Team &lt;hr@yourcompany.com&gt;",subj:"Holiday calendar for 2027",body:"Hi team, the updated holiday calendar is on the intranet where you usually find it. No action needed.",phish:false,why:"Internal sender, no link or request, points to a known location."},
+{from:"IT Helpdesk &lt;it-support@yourcompany-help.net&gt;",subj:"Password expires today",body:"Your password expires today. <a href='#' onclick='return false'>Click here to keep your password</a>",phish:true,why:"External look-alike domain and a urgent password link. Real IT teams do not do this."},
+{from:"Amazon &lt;order-update@amazon.in&gt;",subj:"Your order has shipped",body:"You ordered a phone case yesterday and it has shipped. Track it in the Amazon app or Your Orders page.",phish:false,why:"Matches an order you made and directs you to the app instead of a link. (Always confirm you actually ordered.)"},
+{from:"CEO &lt;ceo.office@gmail.com&gt;",subj:"Urgent favour",body:"I am in a meeting. Buy 5 gift cards of Rs 5000 and send me the codes. Keep this confidential.",phish:true,why:"Authority plus secrecy plus gift cards, sent from a free email account."}
+];
+let done=0,right=0;const box=document.getElementById("quiz");
+Q.forEach((q,i)=>{const d=document.createElement("div");d.className="card";
+d.innerHTML=`<div class="mail"><div class="hd"><b>From:</b> ${q.from}<br><b>Subject:</b> ${q.subj}</div>${q.body}</div>
+<div><button data-a="1">Phishing</button><button class="alt" data-a="0">Legitimate</button></div><div class="fb" role="status"></div>`;
+d.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+ if(d.dataset.done)return;d.dataset.done=1;done++;
+ const ok=(b.dataset.a==="1")===q.phish;if(ok)right++;
+ d.querySelector(".fb").innerHTML=`<span class="${ok?'ok':'bad'}">${ok?'Correct.':'Not quite.'}</span> ${q.why}`;
+ if(done===Q.length){const s=document.getElementById("score");s.hidden=false;
+  s.innerHTML=`<b>Score: ${right} / ${Q.length}.</b> ${right>=4?'Strong instincts. Stay sceptical.':'Review the red flags above and try again.'} <button onclick="location.reload()">Retry</button>`}});
+box.appendChild(d)});
+</script></body></html>
