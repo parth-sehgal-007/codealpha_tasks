@@ -1,5 +1,5 @@
 import threading, time, socket
-from scapy.all import sniff, conf
+from scapy.all import sniff, conf 
 
 def make_traffic():
     # generate some network traffic so there is something to capture
