@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Tiny static analyzer: flags risky patterns line by line. Usage: python audit.py vulnerable_app.py"""
-import re, sys
+import re, sys 
 RULES = [
  (r"f[\"'].*(SELECT|INSERT|UPDATE|DELETE).*\{|[\"']\s*\+.*(SELECT|WHERE)|(SELECT|WHERE).*[\"']\s*\+", "HIGH", "SQL injection: string-built query"),
  (r"shell\s*=\s*True|os\.system\(", "HIGH", "Command injection risk"),
